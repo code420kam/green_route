@@ -21,11 +21,12 @@ export default class UserSrvc {
             return 'Username already exists. Please choose another.'
         }
     }
-    
+
     static async getPassword(user: User): Promise<User | null> {
         const sql = `SELECT password FROM users WHERE(username='${user.username}')`
         const result = await Client.query(sql)
         const pw = user.password + process.env.SECRET_PW
+        console.log(user)
         try {
             if (bcrypt.compareSync(pw, result.rows[0].password)) {
                 return user
@@ -39,6 +40,4 @@ export default class UserSrvc {
     // static async getUserId():Promise<number | null>{
     //     const sql = `SELECT user_id FROM users WHERE(username='${}')`
     // }
-
 }
-

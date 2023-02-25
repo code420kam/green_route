@@ -3,10 +3,10 @@ import VehicleSrvc from "./service"
 
 export default class VehicleCtrl{
     static async create(req: express.Request, res: express.Response) :Promise<express.Response>{
-        console.log(req.body)
-        await VehicleSrvc.registerVehicle(req.body.vehicle_id, req.body.user_id)
+        console.log("REQ BODY", req.body)
+        const data = await VehicleSrvc.registerVehicle(req.body.vehicle_id, req.body.user_id)
         // console.log(res)
-        return res.status(200)
+        return res.status(200).send(data)
     }
     static async getId(req:express.Request, res:express.Response):Promise<express.Response>{
         console.log(req.params)
