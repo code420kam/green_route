@@ -52,10 +52,12 @@ const CarSelector: React.FC<AllProps> = ({ vehicle_id }) => {
   // clickhandler to send userdata & vehicle id to the server
   const clickHandler = () => {
     const user_id = localStorage.getItem("user_id");
+    console.log(user_id)
     dispatch(updateVehicle_id(parseInt(selectedCar)));
     fetchVehicle(selectedCar, user_id);
-
+    console.log(selectedCar)
     if (correctUserdata !== null) {
+      localStorage.removeItem("user_data_complete")
       return navigate("/home");
     }
   };

@@ -1,3 +1,5 @@
+import { incomingData } from "./interfaces";
+
 export const fetchYears = async () => {
   const url = "https://www.fueleconomy.gov/ws/rest/vehicle/menu/year";
   const options = { headers: { Accept: "application/json" } };

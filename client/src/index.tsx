@@ -10,6 +10,8 @@ import ErrorPage from "./Components/ErrorPage";
 import Welcome from "./Components/Welcome";
 import RegisterForm from "./Components/RegisterForm";
 import MyVehicles from "./Components/MyVehicles";
+import AddVehicle from "./Components/AddVehicle";
+import LoginPage from "./Components/LoginPage";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -21,9 +23,11 @@ root.render(
       <Provider store={store}>
         <Routes>
           <Route index element={<Welcome />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/home" element={<Home />} />
-          <Route path="register" element={<RegisterForm />} />
+          <Route path="/register" element={<RegisterForm />} />
           <Route path="/home/myvehicles" element={<MyVehicles />} />
+          <Route path="/home/addvehicle" element={<AddVehicle />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Provider>

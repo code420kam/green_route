@@ -22,16 +22,6 @@ export const fetchNewUser = async (data: any): Promise<UserID | undefined> => {
   } else return returnData;
 };
 
-export const getUserData = async (data: any) => {
-  const options = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  await fetch("http://localhost:8000/");
-};
-
 export const fetchVehicle = async (vehicle_id: any, user_id: string | null) => {
   if (user_id !== null) {
     parseInt(user_id);
@@ -47,6 +37,7 @@ export const fetchVehicle = async (vehicle_id: any, user_id: string | null) => {
     },
     body: JSON.stringify(reqObj),
   };
+  console.log(reqObj);
   await fetch("http://localhost:8000/vehicle/create", options)
     .then((res) => {
       if (res.ok) {
@@ -59,17 +50,34 @@ export const fetchVehicle = async (vehicle_id: any, user_id: string | null) => {
     });
 };
 
-export const getVehicleId = async (user_id: string | null): Promise<[]> => {
-  let data: any = [];
-  const options = {
-    method: "GET",
-    headeres: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(user_id),
-  };
-  await fetch(`http://localhost:8000/vehicle/${user_id}`)
-    .then((res) => res.json())
-    .then((res) => (data = res));
-  return data;
+export const getVehicleId = async (user_id: string | null) => {
+  try {
+    const res = await fetch(`http://localhost:8000/vehicle/${user_id}`);
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log("Error ", error);
+  }
+};
+
+export const getUserPassword = async (username: string, password: string) => {
+  try {
+    const reqObj = {
+      username: username,
+      password: password,
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reqObj),
+    };
+    const res = await fetch(`http://localhost:8000/login/login`, options);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 };
