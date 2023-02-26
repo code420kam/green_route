@@ -15,3 +15,10 @@ export function setZoom(distance: number) {
 export function calculateKm(distance: number) {
   return distance / 1000;
 }
+
+export function calculateFuelConsumption(gallonsPerMile: number) {
+  console.log("GALLON ", gallonsPerMile)
+  const unroundedResult = 235.214 / gallonsPerMile;
+  const roundedResult = Math.round(unroundedResult * 100) / 100;
+  return roundedResult;
+}

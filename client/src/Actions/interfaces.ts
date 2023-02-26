@@ -26,3 +26,6 @@ export interface Data {
   created_on: Date,
   user_id:number,
 }
+ export interface PropsFromState {
+  vehicle_id: number;
+}

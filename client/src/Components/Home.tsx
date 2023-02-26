@@ -18,10 +18,9 @@ import { getVehicleId } from "../Actions/fetchDB";
 import { connect, MapStateToProps, useSelector } from "react-redux";
 import { State } from "../redux/reducer";
 import { fetchVehicleId } from "../Actions/getCarsApi";
-import { incomingData } from "../Actions/interfaces";
-interface PropsFromState {
-  vehicle_id: number;
-}
+import { incomingData, PropsFromState } from "../Actions/interfaces";
+import { calculateFuelConsumption } from "../Actions/helpers";
+
 const mapStateToProps: MapStateToProps<PropsFromState, {}, State> = (
   state
 ) => ({
@@ -32,19 +31,13 @@ const Home = (props: any) => {
   const store = useSelector((state) => state) as unknown as PropsFromState;
   console.log("store", store);
   const navigate = useNavigate();
-  const [currentVehicle, setCurrentVehicle] = React.useState([]);
   const [vehicleData, setVehicleData] = React.useState<incomingData>();
-  const user_id = localStorage.getItem("user_id");
-
   const logoutHandle = () => {
     localStorage.clear();
     navigate("/");
-    console.log("WAS GEHT");
   };
-
-  console.log(localStorage.getItem("user_id"));
   React.useEffect(() => {
-    fetchVehicleId(props.vehicle_id).then((res: any) => {
+    fetchVehicleId(store.vehicle_id).then((res: any) => {
       return setVehicleData(res);
     });
   }, []);
@@ -83,6 +76,16 @@ const Home = (props: any) => {
               <ListItem disablePadding>
                 <ListItemText primary="Fuel Type" />
                 <ListItemText primary={vehicleData?.fuelType1} />
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemText primary="Fuel Consumption" />
+                <ListItemText
+                  primary={
+                    vehicleData?.comb08 &&
+                    calculateFuelConsumption(vehicleData?.comb08) +
+                      " l/100 km"
+                  }
+                />
               </ListItem>
               <ListItem disablePadding>
                 <ListItemText primary="co2 polution" />

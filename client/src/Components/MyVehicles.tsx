@@ -1,4 +1,4 @@
-import { Add, AddHome, Home, HomeRounded } from "@mui/icons-material";
+import { Add, Home } from "@mui/icons-material";
 import {
   Button,
   Paper,
@@ -12,8 +12,9 @@ import {
 import { getVehicleId } from "../Actions/fetchDB";
 import React from "react";
 import { fetchVehicleId } from "../Actions/getCarsApi";
-import { incomingData, MyVehiclesListObj, Data } from "../Actions/interfaces";
+import { MyVehiclesListObj, Data } from "../Actions/interfaces";
 import { useNavigate } from "react-router-dom";
+import { calculateFuelConsumption } from "../Actions/helpers";
 
 const MyVehicles = () => {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const MyVehicles = () => {
       setMyVehiclesListObj(newObj);
     }
     fetchData();
-  }, [status]);
+  }, []);
 
   const addVehicle = () => {
     const params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
@@ -83,7 +84,7 @@ const MyVehicles = () => {
               <TableCell>Make</TableCell>
               <TableCell>Model</TableCell>
               <TableCell>Fuel Type</TableCell>
-              <TableCell>Combined MPG</TableCell>
+              <TableCell>Fuel Consumption</TableCell>
               <TableCell>CO2 Emissions</TableCell>
               <TableCell>Driven KM</TableCell>
               <TableCell>Created On</TableCell>
@@ -91,13 +92,13 @@ const MyVehicles = () => {
           </TableHead>
           <TableBody>
             {myVehiclesListObj.map((data) => {
-              // console.log(data.created_on.getDate)
+              const fuelConsumption = calculateFuelConsumption(data.comb08);
               return (
                 <TableRow key={data.vehicle_id}>
                   <TableCell>{data.make}</TableCell>
                   <TableCell>{data.model}</TableCell>
                   <TableCell>{data.fuelType1}</TableCell>
-                  <TableCell>{data.comb08}</TableCell>
+                  <TableCell>{fuelConsumption} l/100 km</TableCell>
                   <TableCell>{data.co2}</TableCell>
                   <TableCell>{data.driven_km}</TableCell>
                   <TableCell>

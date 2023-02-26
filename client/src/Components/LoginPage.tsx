@@ -11,13 +11,23 @@ import img_routing from "../img/image_routing.png";
 import { getUserPassword, getVehicleId } from "../Actions/fetchDB";
 import { useNavigate } from "react-router-dom";
 import { updateVehicle_id } from "../redux/actions";
-// import jwt from "jsonwebtoken"
+import { connect, MapStateToProps, useDispatch} from "react-redux";
+import { State } from "../redux/reducer";
+import { PropsFromState } from "../Actions/interfaces";
 
+
+const mapDispatchToProps = {
+  updateVehicle_id
+}
+const mapStateToProps: MapStateToProps<PropsFromState, {}, State> = (state) => ({
+  vehicle_id: state.vehicle_id
+})
 const LoginPage = () => {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const loginHandler = async () => {
     if (!username || !password) {
@@ -31,11 +41,13 @@ const LoginPage = () => {
     }
     if (passwordCheck.message === 1) {
       const data = await getVehicleId(passwordCheck.user_id);
-      updateVehicle_id(data[0].vehicle_id);
+      dispatch(updateVehicle_id(data[0].vehicle_id));
+      localStorage.setItem("actual_vehicle", data[0].vehicle_id)
       localStorage.setItem("user_id", passwordCheck.user_id);
       navigate("/home");
     }
   };
+
   return (
     <div style={{ textAlign: "center" }}>
       <h1>Login</h1>
@@ -96,4 +108,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
