@@ -6,7 +6,7 @@ import * as tt from "@tomtom-international/web-sdk-maps";
 import * as ttapi from "@tomtom-international/web-sdk-services";
 import SearchBox, * as ttsearch from "@tomtom-international/web-sdk-plugin-searchbox";
 import Routing from "./Routing";
-import * as api from "../Actions/fetchMap"
+import * as api from "../Actions/fetchMap";
 import { setZoom, calculateKm } from "../Actions/helpers";
 import {
   Autocomplete,
@@ -21,6 +21,7 @@ const Map = () => {
   const API_KEY = process.env.REACT_APP_TOMTOM_API as string;
   const [driveTo, setDriveTo] = useState("");
   const [driveFrom, setDriveFrom] = useState("");
+  const [travelTime, setTravelTime] = useState<ttapi.RouteSummary>()
   const reference = useRef(null);
   const [map, setMap] = useState({});
   const [distance, setDistance] = useState(0);
@@ -59,7 +60,6 @@ const Map = () => {
 
   function fromWhereToWhere(e: any) {
     //   console.log(e)
-    e.preventDefault();
     fetch(
       `https://api.tomtom.com/search/2/geocode/${driveTo}.json?key=${API_KEY}`
     )
@@ -121,9 +121,10 @@ const Map = () => {
               locations: `${startLon},${startLat}:${endLon},${endLat}`,
             })
             .then((res) => {
-              console.log(res);
               // get some important data from response like meters and arrival time
               setDistance(res.routes[0].summary.lengthInMeters);
+              console.log("DISTANCEEE ", distance)
+              setTravelTime(res.routes[0].summary)
               const response = res.toGeoJson();
               map.addLayer({
                 id: "route",
@@ -145,6 +146,7 @@ const Map = () => {
         });
       }
     });
+    
   }, [endLat, endLon, distance]);
   return (
     <div>
@@ -172,7 +174,7 @@ const Map = () => {
       <div ref={mapElement} id="map" style={{ height: "350px" }}>
         Loading..
       </div>
-      <Routing />
+      <Routing travelTime={travelTime}/>
       {km}km
     </div>
   );
