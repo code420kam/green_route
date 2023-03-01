@@ -172,10 +172,9 @@ const Map = () => {
         </Button>
       </FormControl>
       <div ref={mapElement} id="map" style={{ height: "350px" }}>
-        Loading..
-      </div>
+      </div >
+      <span></span>
       <Routing travelTime={travelTime}/>
-      {km}km
     </div>
   );
 };
