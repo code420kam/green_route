@@ -81,3 +81,14 @@ export const getUserPassword = async (username: string, password: string) => {
     console.log(error);
   }
 };
+
+export const username = async  (userid: string) => {
+  try {
+    const res = await fetch(`http://localhost:8000/login/${userid}`);
+    const data = await res.json()
+    console.log("USERNAMEEE ", data);
+    return data.username
+  } catch (error) {
+    
+  }
+}

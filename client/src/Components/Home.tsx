@@ -19,6 +19,7 @@ import { State } from "../redux/reducer";
 import { fetchVehicleId } from "../Actions/getCarsApi";
 import { incomingData, PropsFromState } from "../Actions/interfaces";
 import { calculateFuelConsumption } from "../Actions/helpers";
+import UserProfile from "./UserProfile";
 
 const mapStateToProps: MapStateToProps<PropsFromState, {}, State> = (
   state
@@ -96,7 +97,9 @@ const Home = (props: any) => {
           Show all Vehicles
         </Button>
       </div>
-      <div className="userProfile"> user profile</div>
+      <div className="userProfile">
+        <UserProfile />
+      </div>
       <div className="logOut">
         <Button variant="outlined" type="submit" onClick={() => logoutHandle()}>
           Logout
