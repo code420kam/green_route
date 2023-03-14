@@ -15,6 +15,7 @@ import {
   Button,
   MenuItem,
 } from "@mui/material";
+import { Route } from "@mui/icons-material";
 
 const Map = () => {
   const mapElement = useRef<HTMLDivElement>(null);
@@ -153,6 +154,7 @@ const Map = () => {
         <TextField
           id="from"
           label="From"
+          size="small"
           variant="outlined"
           onChange={(e) => setDriveFrom(e.target.value)}
         />
@@ -161,6 +163,7 @@ const Map = () => {
         <TextField
           id="to"
           label="To"
+          size="small"
           onChange={(e) => setDriveTo(e.target.value)}
           variant="outlined"
         />
@@ -168,7 +171,9 @@ const Map = () => {
       <FormControl onSubmit={(e) => fromWhereToWhere(e)}>
         <Button
           type="submit"
+          startIcon={<Route />}
           variant="outlined"
+          size="large"
           onClick={(e) => fromWhereToWhere(e)}
         >
           Calculate Route
