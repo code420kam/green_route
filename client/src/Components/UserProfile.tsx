@@ -1,17 +1,28 @@
-import { Person } from "@mui/icons-material";
+import { AllInclusive, Person } from "@mui/icons-material";
 import { Box, Button, Divider, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import React from "react";
-import { username } from "../Actions/fetchDB";
+import { getUsername, getVehicleId } from "../Actions/fetchDB";
 
 const UserProfile = () => {
   const userid = localStorage.getItem("user_id")
-
+  const [username, setUsername] = React.useState()
+  let totalkm = 15;
+ const getData = async () => {
+  if(userid !== null)
+  {
+    setUsername(await getUsername(userid));
+    getVehicleId(userid).then((res) => {
+      res.map((datei:any) => {
+        const drivenkm = datei.driven_km
+        console.log(drivenkm)
+        totalkm += drivenkm
+      })})
+  }
+ }
 React.useEffect(() =>{
   
-    if(userid !== null){
-      const dd = username(userid)
-    }
-  },[])
+   getData()
+  })
 
   return (
     <div>
@@ -22,13 +33,18 @@ React.useEffect(() =>{
               <ListItemIcon>
                 <Person />
               </ListItemIcon>
-              <ListItemText primary="User Profile" />
+              <ListItemText primary={`${username}`} />
             </ListItem>
             <Divider />
+            <ListItem disablePadding>
+              <ListItemIcon>
+                <AllInclusive />
+              </ListItemIcon>
+              <ListItemText primary="Total Distance" secondary={`${totalkm} km`} />
+            </ListItem>
           </List>
         </nav>
       </Box>
-      <h1>Profile</h1>
     </div>
   );
 };

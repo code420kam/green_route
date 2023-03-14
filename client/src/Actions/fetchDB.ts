@@ -82,7 +82,7 @@ export const getUserPassword = async (username: string, password: string) => {
   }
 };
 
-export const username = async  (userid: string) => {
+export const getUsername = async  (userid: string) => {
   try {
     const res = await fetch(`http://localhost:8000/login/${userid}`);
     const data = await res.json()
