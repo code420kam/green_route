@@ -1,5 +1,5 @@
 import React from "react";
-import bigLogo from "../img/logolittle.png";
+import bigLogo from "../img/green_route_logo_new.png";
 import Map from "./Map";
 import "../home.css";
 import {
