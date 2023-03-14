@@ -21,7 +21,7 @@ const Map = () => {
   const API_KEY = process.env.REACT_APP_TOMTOM_API as string;
   const [driveTo, setDriveTo] = useState("");
   const [driveFrom, setDriveFrom] = useState("");
-  const [travelTime, setTravelTime] = useState<ttapi.RouteSummary>()
+  const [travelTime, setTravelTime] = useState<ttapi.RouteSummary>();
   const reference = useRef(null);
   const [map, setMap] = useState({});
   const [distance, setDistance] = useState(0);
@@ -123,8 +123,8 @@ const Map = () => {
             .then((res) => {
               // get some important data from response like meters and arrival time
               setDistance(res.routes[0].summary.lengthInMeters);
-              console.log("DISTANCEEE ", distance)
-              setTravelTime(res.routes[0].summary)
+              console.log("DISTANCEEE ", distance);
+              setTravelTime(res.routes[0].summary);
               const response = res.toGeoJson();
               map.addLayer({
                 id: "route",
@@ -146,10 +146,9 @@ const Map = () => {
         });
       }
     });
-    
   }, [endLat, endLon, distance]);
   return (
-    <div>
+    <div style={{ textAlign: "center" }}>
       <FormControl onSubmit={(e) => fromWhereToWhere(e)}>
         <TextField
           id="from"
@@ -157,24 +156,27 @@ const Map = () => {
           variant="outlined"
           onChange={(e) => setDriveFrom(e.target.value)}
         />
+      </FormControl>
+      <FormControl onSubmit={(e) => fromWhereToWhere(e)}>
         <TextField
           id="to"
           label="To"
           onChange={(e) => setDriveTo(e.target.value)}
           variant="outlined"
         />
+      </FormControl>
+      <FormControl onSubmit={(e) => fromWhereToWhere(e)}>
         <Button
           type="submit"
           variant="outlined"
           onClick={(e) => fromWhereToWhere(e)}
         >
-          Find Route
+          Calculate Route
         </Button>
       </FormControl>
-      <div ref={mapElement} id="map" style={{ height: "350px" }}>
-      </div >
-      <span></span>
-      <Routing travelTime={travelTime}/>
+      {/* </FormControl> */}
+      <div ref={mapElement} id="map" style={{ height: "400px" }} />
+      <Routing id="map" travelTime={travelTime} />
     </div>
   );
 };

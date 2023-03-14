@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import { NoCrashOutlined } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { getVehicleId } from "../Actions/fetchDB";
 import { connect, MapStateToProps, useSelector } from "react-redux";
 import { State } from "../redux/reducer";
 import { fetchVehicleId } from "../Actions/getCarsApi";
@@ -82,8 +81,7 @@ const Home = (props: any) => {
                 <ListItemText
                   primary={
                     vehicleData?.comb08 &&
-                    calculateFuelConsumption(vehicleData?.comb08) +
-                      " l/100 km"
+                    calculateFuelConsumption(vehicleData?.comb08) + " l/100 km"
                   }
                 />
               </ListItem>
@@ -99,13 +97,13 @@ const Home = (props: any) => {
         </Button>
       </div>
       <div className="userProfile"> user profile</div>
-      <div className="mapContainer">
-        <Map />
-      </div>
-      <div>
+      <div className="logOut">
         <Button variant="outlined" type="submit" onClick={() => logoutHandle()}>
           Logout
         </Button>
+      </div>
+      <div className="mapContainer">
+        <Map />
       </div>
     </div>
   );
