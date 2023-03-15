@@ -66,7 +66,7 @@ const Routing = (travelTime: any) => {
               )}`}
             />
           </ListItemButton>
-          <Button startIcon={<Navigation />} onClick={() => navigate("/")}>Start Navigation</Button>
+          <Button startIcon={<Navigation />} onClick={() => navigate("/navigation")}>Start Navigation</Button>
         </List>
       ) : (
         <p></p>

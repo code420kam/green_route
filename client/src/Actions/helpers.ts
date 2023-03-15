@@ -22,3 +22,18 @@ export function calculateFuelConsumption(gallonsPerMile: number) {
   const roundedResult = Math.round(unroundedResult * 100) / 100;
   return roundedResult;
 }
+
+// export function getNavigationsMap(API_KEY:string,){
+//   let map = tt.map({
+//     key: API_KEY,
+//     container: "map",
+//     stylesVisibility: {
+//         trafficFlow: true,
+//         trafficIncidents: true
+//     },
+// })
+// setMap(map)
+// map.on("load", ()=> {
+//     const 
+// })
+// }

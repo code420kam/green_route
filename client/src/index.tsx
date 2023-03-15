@@ -12,6 +12,7 @@ import RegisterForm from "./Components/RegisterForm";
 import MyVehicles from "./Components/MyVehicles";
 import AddVehicle from "./Components/AddVehicle";
 import LoginPage from "./Components/LoginPage";
+import Navigation from "./Components/Navigation";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -28,6 +29,7 @@ root.render(
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/home/myvehicles" element={<MyVehicles />} />
           <Route path="/home/addvehicle" element={<AddVehicle />} />
+          <Route path="/navigation" element={<Navigation />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Provider>
